@@ -9,19 +9,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 
 public class Download<T> {
-	static private final String src = "https://query1.finance.yahoo.com/v7/finance/chart/";
-	// slb?range=3mo&interval=1d";
-	final private String symbol;
-	final private String range;
-	final private String interval;	
-	public Download(String symbol, String range, String interval) {
-		this.symbol = symbol;
-		this.range = range;
-		this.interval = interval;
+	final private String url;
+	public Download(String _url) {
+		this.url = _url;
 	}
-	
+
 	public <T> T download(Class<T> cls) throws IOException {
-		URL url = new URL(src + this.symbol + "?range=" + this.range + "&interval=" + this.interval);
+		URL url = new URL(this.url);
 		URLConnection conn = url.openConnection();
 		InputStream is = conn.getInputStream();
 		
