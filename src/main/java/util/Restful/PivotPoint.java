@@ -6,6 +6,10 @@ public class PivotPoint {
 	final public double close;
 	final public double s1;
 	final public double s2;
+	public Boolean aboveS1 = null;
+	public Boolean aboveS2 = null;	
+	public Boolean aboveR2 = null;	
+	public Boolean aboveR1 = null;	
 	public PivotPoint(double open, double close, double high, double low) {
 		double p = (high + low + close) / 3;
 		this.r1 = 2 * p - low;
@@ -15,3 +19,4 @@ public class PivotPoint {
 		this.close = close;
 	}
 }
+ 

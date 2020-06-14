@@ -32,11 +32,42 @@ public class YahooDataBuilder implements DataBuilder<YahooEntity> {
 		final List<MarketData> list = new ArrayList<>();
 		Quote q = entity.chart.result.get(0).indicators.quote.get(0);
 		Adjclose c = entity.chart.result.get(0).indicators.adjclose.get(0);
+		PivotPoint old = null;
 		for (int i = 0; i < len; i ++) {
 			MarketData md = new MarketData();
 			md.pp = new PivotPoint(q.open.get(i), c.adjclose.get(i), q.high.get(i), q.low.get(i));
 			md.dp = new DadaPoint(q.open.get(i), c.adjclose.get(i), q.high.get(i), q.low.get(i), q.volume.get(i));
 			md.tempstamp = entity.chart.result.get(0).timestamp.get(i);
+			//
+			if (old != null && md.dp.low > old.s1) {
+				md.pp.aboveS1 = true;
+			}
+			else {
+				md.pp.aboveS1 = false;
+			}
+			
+			if (old != null && md.dp.low > old.s2) {
+				md.pp.aboveS2 = true;
+			}
+			else {
+				md.pp.aboveS2 = false;
+			}
+			//
+			if (old != null && md.dp.high > old.r1) {
+				md.pp.aboveR1 = true;
+			}
+			else {
+				md.pp.aboveR1 = false;
+			}
+			
+			if (old != null && md.dp.high > old.r2) {
+				md.pp.aboveR2 = true;
+			}
+			else {
+				md.pp.aboveR2 = false;
+			}
+
+			old = md.pp;
 			list.add(md);
 		}
 		return list;
