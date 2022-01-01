@@ -1,0 +1,5 @@
+ReqQueueSize = 10
+RespQueueSize = 10
+MaxOpenConns = 8
+MaxIdleConns = 8
+ConnMaxLifetime = 5
